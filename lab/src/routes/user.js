@@ -25,5 +25,21 @@ userRouter
   //   // TODO Create get method API
   //   const username = req.params.username
   // })
+
+  .get('/:username', (req, resp) => {
+    const username = req.params.username
+  
+    // Call the controller to retrieve the user from Redis
+    userController.get(username, (err, user) => {
+      if (err || !user) {
+        return resp.status(404).json({
+          status: 'error',
+          msg: 'User not found'
+        })
+      }
+      // if the user exists it will return it with HTTP 200
+      resp.status(200).json(user)
+    })
+  })
   
 module.exports = userRouter

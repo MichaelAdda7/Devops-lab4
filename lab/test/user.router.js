@@ -62,4 +62,48 @@ describe('User REST API', () => {
   // describe('GET /user', ()=> {
   //   // TODO Create test for the get method
   // })
+
+  describe('GET /user/:username', () => {
+
+  it('successfully gets an existing user', (done) => {
+    const user = {
+      username: 'Micky',
+      firstname: 'Michael',
+      lastname: 'Adda'
+    }
+
+    // create a user with POST /user so we can fetch it afterwards
+    chai.request(app)
+      .post('/user')
+      .send(user)
+      .then(() => {
+        
+        //  request the same user with GET /user/Micky
+        return chai.request(app)
+          .get('/user/Micky')
+      })
+      .then((res) => {
+        chai.expect(res).to.have.status(200)
+        chai.expect(res).to.be.json
+        chai.expect(res.body.username).to.equal('Micky')
+        chai.expect(res.body.firstname).to.equal('Michael')
+        chai.expect(res.body.lastname).to.equal('Adda')
+        done()
+      })
+      .catch(err => { throw err })
+  })
+
+  it('returns 404 when user does not exist', (done) => {
+    chai.request(app)
+      .get('/user/ghost')
+      .then((res) => {
+        chai.expect(res).to.have.status(404)
+        chai.expect(res.body.status).to.equal('error')
+        done()
+      })
+      .catch(err => { throw err })
+  })
+
+})
+
 })
