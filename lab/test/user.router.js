@@ -59,12 +59,10 @@ describe('User REST API', () => {
     })
   })
 
-  // describe('GET /user', ()=> {
-  //   // TODO Create test for the get method
-  // })
-
+// 2 API tests for the GET /user/:username
   describe('GET /user/:username', () => {
 
+// First test for successfully retriev an existing user
   it('successfully gets an existing user', (done) => {
     const user = {
       username: 'Micky',
@@ -93,6 +91,7 @@ describe('User REST API', () => {
       .catch(err => { throw err })
   })
 
+// Second test should return 404 when the user does not exist 
   it('returns 404 when user does not exist', (done) => {
     chai.request(app)
       .get('/user/ghost')
