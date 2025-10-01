@@ -61,3 +61,7 @@ From the root directory of the project, run:
 ```
 npm test
 ```
+
+```
+Render web app : https://devops-lab4.onrender.com/
+```
