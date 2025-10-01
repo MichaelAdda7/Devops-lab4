@@ -23,6 +23,7 @@ const server = app.listen(port, (err) => {
   if (err) throw err
   console.log("Server listening the port " + port)
 })
+console.log("CI/CD test running...");
 
 
 module.exports = server
